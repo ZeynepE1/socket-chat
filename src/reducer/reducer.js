@@ -20,8 +20,8 @@ function reducers(state = initialState, action) {
 			return {
 				...state,
 				userData: {
-					user,
-					token
+					user
+
 				},
 			};
 		case LOGOUT:

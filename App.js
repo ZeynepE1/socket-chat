@@ -5,6 +5,8 @@ import { persistor, store } from './src/store/store';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import { SafeAreaView } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
+import 'react-native-gesture-handler';
+
 
 
 const App = () => {
