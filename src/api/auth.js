@@ -24,6 +24,7 @@ export default class AuthAPI {
 
         })
             .then((res) => {
+                console.log(res.data)
                 callback(res.data, false)
             })
 
@@ -42,31 +43,14 @@ export default class AuthAPI {
 
     };
 
-    static async login(values, age, date, gender, getCampaignsMail, getCampaignsSMS, privacyPolicy, personalDataPolicy, kvkk, callback) {
-
+    static async login(values, callback) {
+        console.log("gelen values", values)
         const params = JSON.stringify({
-            "tcNo": values.tcNo,
-            "name": values.name,
-            "email": values.email,
             "username": values.username,
-            "password": values.password,
-            "phone": values.phone,
-            "age": age,
-            "birthday": date,
-            "address": values.address,
-            "job": values.job,
-            "height": values.height,
-            "weight": values.weight,
-            "targetWeight": values.targetWeight,
-            "gender": gender,
-            "getCampaignsMail": getCampaignsMail,
-            "getCampaignsSms": getCampaignsSMS,
-            "privacyPolicy": privacyPolicy,
-            "personalDataPolicy": personalDataPolicy,
-            "kvkk": kvkk
+            "password": values.password
         });
 
-        axios.post('http://194.5.236.6:3000/api/v1/auth/register', params, {
+        axios.post('http://194.5.236.6:9000/api/v1/auth/login', params, {
 
             "headers": {
                 "content-type": "application/json",

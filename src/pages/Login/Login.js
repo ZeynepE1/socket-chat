@@ -4,26 +4,26 @@ import styles from './Login.style';
 import { Formik } from 'formik';
 import axios from 'axios';
 import { connect } from 'react-redux';
-//import { login } from '../../action/creators';
-//import AuthApi from '../../api/auth';
+import { login } from '../../action/creators';
+import AuthApi from '../../api/auth';
 import { TextInput, FAB } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
-const LoginPage = () => {
+const LoginPage = ({ login }) => {
     //const {data,loading,error,post} = usePost();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    /* async function handleLogin(values) {
+    async function handleLogin(values) {
         await AuthApi.login(values, (resp, err) => {
             console.log(resp)
-            if (resp.token != undefined && !err) {
+            if (resp.user) {
                 login(resp);
             }
         }).catch((err) => {
             console.log(err)
         })
-    } */
+    }
     const navigation = useNavigation();
 
 
