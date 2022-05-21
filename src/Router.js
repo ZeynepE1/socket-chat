@@ -29,7 +29,7 @@ const Router = ({ userData }) => {
                   component={Home}
                   options={{ headerShown: false }}
                 />
-                <Stack.Screen name="Chat" component={Chat} />
+                <Stack.Screen name="Chat" options={{ title: 'Chat' }} component={Chat} />
               </>
             ) : (
               <>

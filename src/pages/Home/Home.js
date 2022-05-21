@@ -4,7 +4,7 @@ import { logout } from '../../action/creators'
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Button } from 'react-native-paper';
+import { Button, Searchbar } from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native'
 import UserAPI from '../../api/user';
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -15,7 +15,9 @@ const Home = ({ logout, userData }) => {
     const isFocused = useIsFocused();
     const navigation = useNavigation();
     const [data, setData] = useState([]);
+    const [searchQuery, setSearchQuery] = React.useState('');
 
+    const onChangeSearch = query => setSearchQuery(query);
     useEffect(() => {
         let isApiSubscribed = true;
 
@@ -38,8 +40,13 @@ const Home = ({ logout, userData }) => {
     }
     return (
         <SafeAreaView style={styles.container}>
-            {/* <Button onPress={() => logout()}><Text>Çıkış</Text></Button> */}
-
+            <Button color='black' icon="logout" style={{ backgroundColor: '#bff5e9', width: '95%', alignSelf: 'center' }} onPress={() => logout()}><Text>Çıkış</Text></Button>
+            <Searchbar
+                placeholder="Search"
+                onChangeText={onChangeSearch}
+                value={searchQuery}
+                style={{ width: '95%', alignSelf: 'center' }}
+            />
             <FlatList data={data} renderItem={renderUsers} keyExtractor={(item) => item._id} />
 
         </SafeAreaView>

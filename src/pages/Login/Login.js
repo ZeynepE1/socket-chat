@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, Text, View, Image, Alert, StyleSheet } from 'react-native';
-import styles from './Login.style';
+import styles from './LoginStyle';
 import { Formik } from 'formik';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { login } from '../../action/creators';
 import AuthApi from '../../api/auth';
-import { TextInput, FAB } from 'react-native-paper';
+import { TextInput, FAB, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import { Picker, FormItem } from 'react-native-form-component';
 
 const LoginPage = ({ login }) => {
     //const {data,loading,error,post} = usePost();
@@ -29,9 +30,9 @@ const LoginPage = ({ login }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            {/*    <View style={styles.logoContainer}>
-                <Image style={styles.logo} source={require('../../assets/logo/lg6.png')} />
-            </View> */}
+            <View style={styles.logoContainer}>
+                <Image style={styles.logo} source={require('../../../assets/logo.png')} />
+            </View>
             <Formik
                 initialValues={{
                     username: "",
@@ -45,27 +46,29 @@ const LoginPage = ({ login }) => {
                         <View style={styles.bodyContainer}>
 
                             <TextInput
-                                label="Username"
+                                label="Kullanıcı Adı"
                                 value={values.username}
                                 onChangeText={handleChange('username')}
                                 onBlur={handleBlur('username')}
-                                mode="flat"
-                                right={<TextInput.Icon name="human-male-height" />}
+                                mode="outlined"
+                                right={<TextInput.Icon name="human" />}
 
                             />
 
                             <TextInput
-                                label="Password"
+                                label="Şifre"
                                 value={values.password}
                                 onChangeText={handleChange('password')}
                                 onBlur={handleBlur('password')}
-                                mode="flat"
+                                mode="outlined"
                                 secureTextEntry
                                 right={<TextInput.Icon name="eye" />}
                             />
-
                         </View>
-                        <FAB
+
+                        <Button onPress={() => handleSubmit()} style={{ backgroundColor: '#06d6cc', width: '90%', alignSelf: 'center', borderRadius: 25 }} color='white'>Giriş</Button>
+                        <Button onPress={() => navigation.navigate('Register')} style={{ marginTop: '15%', width: '90%', alignSelf: 'center', borderRadius: 25 }} color='#06d6cc'>Kayıt Ol</Button>
+                        {/* <FAB
                             style={styles.fab}
                             icon="login"
                             onPress={() => handleSubmit()}
@@ -76,11 +79,9 @@ const LoginPage = ({ login }) => {
                             icon="human"
                             onPress={() => navigation.navigate('Register')}
                             label='Kayıt Ol'
-                        />
+                        /> */}
                     </>
                 )}
-
-
             </Formik>
 
         </SafeAreaView>

@@ -6,20 +6,22 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { login } from '../../action/creators';
 import AuthApi from '../../api/auth';
-import { TextInput, FAB } from 'react-native-paper';
+import { TextInput, FAB, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-
+import { ScrollView } from 'react-native-virtualized-view'
+import { Picker } from '@react-native-picker/picker';
 
 const Register = ({ login, userData }) => {
     console.log('*****', userData)
     //const {data,loading,error,post} = usePost();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
+    const [selectedLanguage, setSelectedLanguage] = useState();
+    // console.log("selectedLanguage", selectedLanguage)
     async function handleLogin(values) {
         console.log(values)
 
-        await AuthApi.register(values, (resp, err) => {
+        await AuthApi.register(selectedLanguage, values, (resp, err) => {
             console.log(resp)
 
             login(resp);
@@ -32,6 +34,7 @@ const Register = ({ login, userData }) => {
 
 
     return (
+
         <SafeAreaView style={styles.container}>
             {/*    <View style={styles.logoContainer}>
                  <Image style={styles.logo} source={require('../../assets/logo/lg6.png')} />
@@ -55,7 +58,7 @@ const Register = ({ login, userData }) => {
                                 value={values.username}
                                 onChangeText={handleChange('username')}
                                 onBlur={handleBlur('username')}
-                                mode="flat"
+                                mode="outlined"
                                 right={<TextInput.Icon name="human" />}
 
                             />
@@ -64,7 +67,7 @@ const Register = ({ login, userData }) => {
                                 value={values.email}
                                 onChangeText={handleChange('email')}
                                 onBlur={handleBlur('email')}
-                                mode="flat"
+                                mode="outlined"
                                 right={<TextInput.Icon name="mail" />}
 
                             />
@@ -73,7 +76,7 @@ const Register = ({ login, userData }) => {
                                 value={values.phone}
                                 onChangeText={handleChange('phone')}
                                 onBlur={handleBlur('phone')}
-                                mode="flat"
+                                mode="outlined"
                                 right={<TextInput.Icon name="phone" />}
 
                             />
@@ -83,24 +86,36 @@ const Register = ({ login, userData }) => {
                                 value={values.password}
                                 onChangeText={handleChange('password')}
                                 onBlur={handleBlur('password')}
-                                mode="flat"
+                                mode="outlined"
                                 secureTextEntry
                                 right={<TextInput.Icon name="eye" />}
                             />
 
+                            <Picker
+                                selectedValue={selectedLanguage}
+                                onValueChange={(itemValue, itemIndex) =>
+                                    setSelectedLanguage(itemValue)
+                                }>
+                                <Picker.Item label="Türkçe" value="tr" />
+                                <Picker.Item label="İngilizce" value="en" />
+                                <Picker.Item label="Almanca" value="de" />
+                            </Picker>
+
                         </View>
-                        <FAB
+
+                        <Button onPress={() => handleSubmit()} style={{ backgroundColor: '#06d6cc', width: '90%', alignSelf: 'center', borderRadius: 25 }} color='white'>Kaydet</Button>
+                        {/* <FAB
                             style={styles.fab}
                             icon="login"
                             onPress={() => handleSubmit()}
                             label='Giriş'
-                        />
-                        <FAB
+                        /> */}
+                        {/* <FAB
                             style={styles.fabRegister}
                             icon="human"
                             onPress={() => navigation.navigate('Register')}
                             label='Kayıt Ol'
-                        />
+                        /> */}
                     </>
                 )}
 
@@ -108,6 +123,7 @@ const Register = ({ login, userData }) => {
             </Formik>
 
         </SafeAreaView>
+
     );
 }
 

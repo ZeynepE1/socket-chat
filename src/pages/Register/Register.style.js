@@ -3,7 +3,8 @@ import { StyleSheet, Dimensions } from "react-native";
 
 export default StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: '#f2f2d8'
     },
     logoContainer: {
         justifyContent: 'center',

@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.4",
     "@react-native-community/masked-view": "^0.1.11",
+    "@react-native-picker/picker": "^2.4.1",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
     "axios": "^0.27.2",
@@ -32,6 +33,7 @@
     "react-native-reanimated": "~2.8.0",
     "react-native-safe-area-context": "4.2.4",
     "react-native-screens": "~3.11.1",
+    "react-native-virtualized-view": "^0.1.5",
     "react-native-web": "0.17.7",
     "react-redux": "^8.0.1",
     "redux": "^4.2.0",

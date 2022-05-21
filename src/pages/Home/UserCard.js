@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { Badge } from 'react-native-paper';
 
 
 const UserCard = ({ item, navigation }) => {
@@ -7,8 +8,9 @@ const UserCard = ({ item, navigation }) => {
         <TouchableOpacity onPress={() => navigation.navigate('Chat', {
             userID: item._id
         })} style={styles.cardStyle}>
-            <Text>{item.username}</Text>
             <Image style={styles.imageStyle} source={{ uri: 'https://placeimg.com/60/60/any' }} />
+            <Badge style={styles.badge}>3</Badge>
+            <Text style={{ marginLeft: 10 }}>{item.username}</Text>
         </TouchableOpacity>
     )
 }
@@ -23,8 +25,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '80%',
+        justifyContent: 'space-round',
+        width: '100%',
         padding: 20,
         marginTop: 10,
         borderRadius: 10,
@@ -34,12 +36,13 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 3.00,
 
-        elevation: 1,
+        elevation: 0,
     },
     imageStyle: {
         width: 50,
         height: 50,
         borderRadius: 50
-    }
+    },
+    badge: { position: 'absolute', margin: 0, right: 310, bottom: 55, backgroundColor: 'green' },
 });
 export default UserCard

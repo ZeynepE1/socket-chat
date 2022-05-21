@@ -5,14 +5,15 @@ export default class AuthAPI {
 
 
 
-    static async register(values, callback) {
-
+    static async register(selectedLanguage, values, callback) {
+        console.log("GELEN DATALAR", values)
         const params = JSON.stringify({
 
             "email": values.email,
             "username": values.username,
             "password": values.password,
-            "phone": values.phone
+            "phone": values.phone,
+            "language": selectedLanguage
 
         });
 
