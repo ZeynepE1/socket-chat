@@ -13,7 +13,7 @@ const Chat = ({ userData, route }) => {
     const [messages, setMessages] = useState([])
     // const [textValue, setTextValue] = React.useState("");
     const socketRef = useRef()
-    socketRef.current = io('http://194.5.236.6:9001')
+    // socketRef.current = io('http://194.5.236.6:9001')
 
     // socketRef.current.on('messages', (mes) => {
     //     console.log("mess", mes)
@@ -31,7 +31,25 @@ const Chat = ({ userData, route }) => {
 
     //     })
     // }
+    useEffect(() => {
+        socketRef.current = io('http://194.5.236.6:9001')
 
+        let isApiSubscribed = true;
+
+        ChatAPI.getMessages(userData.user.userID, userID, (resp, err) => {
+            // console.log("resppppp", resp)
+            if (isApiSubscribed) {
+                // console.log("*-***", resp.messages)
+                setMessages(resp.newArray);
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+        return () => {
+            isApiSubscribed = false;
+        };
+
+    }, [])
     const onSend = (messages) => {
         const chatData = {
             reveiver: userID,
@@ -58,23 +76,7 @@ const Chat = ({ userData, route }) => {
         // setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
 
     }
-    useEffect(() => {
-        let isApiSubscribed = true;
 
-        ChatAPI.getMessages(userData.user.userID, userID, (resp, err) => {
-            // console.log("resppppp", resp)
-            if (isApiSubscribed) {
-                // console.log("*-***", resp.messages)
-                setMessages(resp.newArray);
-            }
-        }).catch((err) => {
-            console.log(err)
-        })
-        return () => {
-            isApiSubscribed = false;
-        };
-
-    }, [])
 
     // const onSend = () => {
     //     const message = {
