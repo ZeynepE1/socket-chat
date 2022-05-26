@@ -50,7 +50,7 @@ const Chat = ({ userData, route }) => {
             isApiSubscribed = false;
         };
 
-    }, [refresh])
+    }, [])
     const onSend = (messages) => {
         const chatData = {
             reveiver: userID,
@@ -71,8 +71,6 @@ const Chat = ({ userData, route }) => {
         socketRef.current.on('messageObj', (messageData) => {
             console.log("messageData", messageData.messages)
             setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
-            setRefresh(!refresh)
-
         })
         // setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
 
