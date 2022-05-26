@@ -14,7 +14,7 @@ const Chat = ({ userData, route }) => {
     const [refresh, setRefresh] = useState(false)
     // const [textValue, setTextValue] = React.useState("");
     const socketRef = useRef()
-    socketRef.current = io('http://194.5.236.6:9000')
+    socketRef.current = io('http://194.5.236.6:9001')
 
     // socketRef.current.on('messages', (mes) => {
     //     console.log("mess", mes)
@@ -33,7 +33,7 @@ const Chat = ({ userData, route }) => {
     //     })
     // }
     useEffect(() => {
-        socketRef.current = io('http://194.5.236.6:9000')
+        // socketRef.current = io('http://194.5.236.6:9000')
 
         let isApiSubscribed = true;
 
