@@ -18,6 +18,7 @@ const Chat = ({ userData, route }) => {
     const isFocused = useIsFocused()
 
     // socketRef.current = io('http://194.5.236.6:9001')
+    socketRef.current = io('http://194.5.236.6:9001')
 
     // socketRef.current.on('messages', (mes) => {
     //     console.log("mess", mes)
@@ -36,13 +37,17 @@ const Chat = ({ userData, route }) => {
     //     })
     // }
     useEffect(() => {
-
+        socketRef.current.on('messageObj', (messageData) => {
+            console.log("messageData", messageData.messages)
+            // messages.push(messageData.messages)
+            // GiftedChat.append(messageData.messages)
+            setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
+        })
         let isApiSubscribed = true;
 
         ChatAPI.getMessages(userData.user.userID, userID, (resp, err) => {
             // console.log("resppppp", resp)
             if (isApiSubscribed) {
-                socketRef.current = io('http://194.5.236.6:9001')
 
                 // console.log("*-***", resp.messages)
                 setMessages(resp.newArray);
@@ -73,12 +78,7 @@ const Chat = ({ userData, route }) => {
         socketRef.current.on('userInfo', (userInfo) => {
             console.log(userInfo)
         })
-        socketRef.current.on('messageObj', (messageData) => {
-            console.log("messageData", messageData.messages)
-            // messages.push(messageData.messages)
-            // GiftedChat.append(messageData.messages)
-            setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
-        })
+
         // setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
     }
 
