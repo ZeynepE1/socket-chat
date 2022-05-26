@@ -13,7 +13,7 @@ const Chat = ({ userData, route }) => {
     const [messages, setMessages] = useState([])
     // const [textValue, setTextValue] = React.useState("");
     const socketRef = useRef()
-    // socketRef.current = io('http://194.5.236.6:9001')
+    socketRef.current = io('http://194.5.236.6:9001')
 
     // socketRef.current.on('messages', (mes) => {
     //     console.log("mess", mes)
@@ -67,7 +67,7 @@ const Chat = ({ userData, route }) => {
         socketRef.current.on('userInfo', (userInfo) => {
             console.log(userInfo)
         })
-        socketRef.current.on('messages', (messageData) => {
+        socketRef.current.on('messageObj', (messageData) => {
             console.log("messageData", messageData.messages)
             setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
             // messages.push(messageData.messages)
