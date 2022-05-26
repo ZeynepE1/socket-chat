@@ -23,9 +23,13 @@ const Chat = ({ userData, route }) => {
     //         messages: GiftedChat.append(previousState.messages, arrMes),
     //     }));
     // });
-    console.log(userData)
-    // const onReceivedMessage = (mes) => {
+    // console.log(userData)
+    // const onReceivedMessage = () => {
+    //     socketRef.current.on('messages', (messageData) => {
+    //         // console.log("messageData", [messageData])
+    //         setMessages(previousMessages => GiftedChat.append(previousMessages, [messageData]))
 
+    //     })
     // }
 
     const onSend = (messages) => {
@@ -35,15 +39,24 @@ const Chat = ({ userData, route }) => {
             chatID: userData.user.userID + userID
         }
         const mes = messages[0];
+        // console.log("messages", messages)
+
         // const { username } = userData;
         mes['username'] = userData.user.username;
         // setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
         // console.log("username*************", username)
         socketRef.current.emit('messages', mes, chatData)
+        socketRef.current.on('userInfo', (userInfo) => {
+            console.log(userInfo)
+        })
         socketRef.current.on('messages', (messageData) => {
-            setMessages(previousMessages => GiftedChat.append(previousMessages, messageData))
+            console.log("messageData", messageData.messages)
+            setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
+            // messages.push(messageData.messages)
 
         })
+        // setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+
     }
     useEffect(() => {
         let isApiSubscribed = true;
@@ -51,7 +64,7 @@ const Chat = ({ userData, route }) => {
         ChatAPI.getMessages(userData.user.userID, userID, (resp, err) => {
             // console.log("resppppp", resp)
             if (isApiSubscribed) {
-                console.log("*-***", resp.messages)
+                // console.log("*-***", resp.messages)
                 setMessages(resp.newArray);
             }
         }).catch((err) => {
