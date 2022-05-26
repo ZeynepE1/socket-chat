@@ -11,18 +11,44 @@ const Chat = ({ userData, route }) => {
     // console.log("gönderen", userData.user.userID)
     // console.log("alan", userID)
     const [messages, setMessages] = useState([])
-    const [textValue, setTextValue] = React.useState("");
+    // const [textValue, setTextValue] = React.useState("");
     const socketRef = useRef()
-    socketRef.current = io('http://194.5.236.6:9000')
-    // console.log("chat ", socketRef.current)
+    socketRef.current = io('http://194.5.236.6:9001')
 
+    // socketRef.current.on('messages', (mes) => {
+    //     console.log("mess", mes)
+    //     const arrMes = [{ ...mes.messages }];
+
+    //     setMessages((previousState) => ({
+    //         messages: GiftedChat.append(previousState.messages, arrMes),
+    //     }));
+    // });
+    console.log(userData)
+    // const onReceivedMessage = (mes) => {
+
+    // }
+
+    const onSend = (messages) => {
+        const chatData = {
+            reveiver: userID,
+            sender: userData.user.userID,
+            chatID: userData.user.userID + userID
+        }
+        const mes = messages[0];
+        // const { username } = userData;
+        mes['username'] = userData.user.username;
+        setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+        // console.log("username*************", username)
+        socketRef.current.emit('messages', mes, chatData)
+    }
     useEffect(() => {
         let isApiSubscribed = true;
 
         ChatAPI.getMessages(userData.user.userID, userID, (resp, err) => {
             // console.log("resppppp", resp)
             if (isApiSubscribed) {
-                setMessages(resp.messages);
+                console.log("*-***", resp.messages)
+                setMessages(resp.newArray);
             }
         }).catch((err) => {
             console.log(err)
@@ -30,57 +56,61 @@ const Chat = ({ userData, route }) => {
         return () => {
             isApiSubscribed = false;
         };
-        //   getMessages()
-        //randomId()
-        const socket = io('http://194.5.236.6:9000')
-        console.log("socket")
-        socket.emit('connection', "selam")
+
     }, [])
 
-    const onSend = () => {
-        const message = {
-            _id: Math.round(Math.random() * 1000000),
-            text: textValue,
-            createdAt: new Date(),
-            id: Math.round(Math.random() * 1000000),
-            reveiver: userID,
-            sender: userData.user.userID,
-            chatID: userData.user.userID + userID
-        }
-        // let userObject = message[0].user
-        // let txt = message[0].text
-        // console.log(message)
-        // console.log("giden message", message)
-        socketRef.current.emit('message', message)
-        socketRef.current.on('message', (message) => {
-            messages.push(message)
-            // setMessages(previousMessages => GiftedChat.append(previousMessages, message))
-        })
-        // const messageObject = {
-        //     text: txt,
-        //     user: userObject
-        // }
-        setTextValue("")
+    // const onSend = () => {
+    //     const message = {
+    //         _id: Math.round(Math.random() * 1000000),
+    //         text: textValue,
+    //         createdAt: new Date(),
+    //         id: Math.round(Math.random() * 1000000),
+    //         reveiver: userID,
+    //         sender: userData.user.userID,
+    //         chatID: userData.user.userID + userID
+    //     }
+    //     // let userObject = message[0].user
+    //     // let txt = message[0].text
+    //     // console.log(message)
+    //     // console.log("giden message", message)
+    //     socketRef.current.emit('message', message)
+    //     socketRef.current.on('message', (message) => {
+    //         messages.push(message)
+    //         // setMessages(previousMessages => GiftedChat.append(previousMessages, message))
+    //     })
+    //     // const messageObject = {
+    //     //     text: txt,
+    //     //     user: userObject
+    //     // }
+    //     setTextValue("")
 
-    }
-    const renderMessages = ({ item }) => {
-        // console.log("data", item)
-        return (
-            // <Text style={{ alignSelf: item.sender == userData.user.userID ? 'flex-end' : 'flex-start', backgroundColor: 'grey', margin: 6, width: '50%', padding: 10 }}>{item.text}</Text>  
+    // }
+    // const renderMessages = ({ item }) => {
+    //     // console.log("data", item)
+    //     return (
+    //         // <Text style={{ alignSelf: item.sender == userData.user.userID ? 'flex-end' : 'flex-start', backgroundColor: 'grey', margin: 6, width: '50%', padding: 10 }}>{item.text}</Text>  
 
-            <Text style={item.sender == userData.user.userID ? styles.senderStyle : styles.reveiverStyle}>{item.text}</Text>
-        )
-    }
+    //         <Text style={item.sender == userData.user.userID ? styles.senderStyle : styles.reveiverStyle}>{item.text}</Text>
+    //     )
+    // }
     return (
-        <>
-            <FlatList data={messages} inverted renderItem={renderMessages} keyExtractor={(item) => item._id} />
-            <TextInput
-                label="Mesaj"
-                value={textValue}
-                onChangeText={textValue => setTextValue(textValue)}
-            />
-            <Button onPress={() => onSend()}>Gönder</Button>
-        </>
+        <GiftedChat
+            messages={messages}
+            onSend={onSend}
+            // onPressAvatar={(user) => alert(user.name)}
+            user={{
+                _id: userData.user.userID,
+            }}
+        />
+        // <>
+        //     <FlatList data={messages} inverted renderItem={renderMessages} keyExtractor={(item) => item._id} />
+        //     <TextInput
+        //         label="Mesaj"
+        //         value={textValue}
+        //         onChangeText={textValue => setTextValue(textValue)}
+        //     />
+        //     <Button onPress={() => onSend()}>Gönder</Button>
+        // </>
         // <GiftedChat
         //     // isLoadingEarlier
         //     scrollToBottom

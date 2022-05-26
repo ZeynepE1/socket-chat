@@ -40,13 +40,13 @@ const Home = ({ logout, userData }) => {
     }
     return (
         <SafeAreaView style={styles.container}>
-            <Button color='black' icon="logout" style={{ backgroundColor: '#bff5e9', width: '95%', alignSelf: 'center' }} onPress={() => logout()}><Text>Çıkış</Text></Button>
-            <Searchbar
+            {/* <Button color='black' icon="logout" style={{ backgroundColor: '#bff5e9', width: '95%', alignSelf: 'center' }} onPress={() => logout()}><Text>Çıkış</Text></Button> */}
+            {/* <Searchbar
                 placeholder="Search"
                 onChangeText={onChangeSearch}
                 value={searchQuery}
                 style={{ width: '95%', alignSelf: 'center' }}
-            />
+            /> */}
             <FlatList data={data} renderItem={renderUsers} keyExtractor={(item) => item._id} />
 
         </SafeAreaView>
