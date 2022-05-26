@@ -12,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native';
 import UserCard from './UserCard';
 const Home = ({ logout, userData }) => {
+    // logout();
     const isFocused = useIsFocused();
     const navigation = useNavigation();
     const [data, setData] = useState([]);

@@ -37,9 +37,13 @@ const Chat = ({ userData, route }) => {
         const mes = messages[0];
         // const { username } = userData;
         mes['username'] = userData.user.username;
-        setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+        // setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
         // console.log("username*************", username)
         socketRef.current.emit('messages', mes, chatData)
+        socketRef.current.on('messages', (messageData) => {
+            setMessages(previousMessages => GiftedChat.append(previousMessages, messageData))
+
+        })
     }
     useEffect(() => {
         let isApiSubscribed = true;
