@@ -11,6 +11,7 @@ const Chat = ({ userData, route }) => {
     // console.log("gönderen", userData.user.userID)
     // console.log("alan", userID)
     const [messages, setMessages] = useState([])
+    const [refresh, setRefresh] = useState(false)
     // const [textValue, setTextValue] = React.useState("");
     const socketRef = useRef()
     socketRef.current = io('http://194.5.236.6:9000')
@@ -49,7 +50,7 @@ const Chat = ({ userData, route }) => {
             isApiSubscribed = false;
         };
 
-    }, [])
+    }, [refresh])
     const onSend = (messages) => {
         const chatData = {
             reveiver: userID,
@@ -70,7 +71,7 @@ const Chat = ({ userData, route }) => {
         socketRef.current.on('messageObj', (messageData) => {
             console.log("messageData", messageData.messages)
             setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
-            // messages.push(messageData.messages)
+            setRefresh(!refresh)
 
         })
         // setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
