@@ -4,7 +4,7 @@ import { logout } from '../../action/creators'
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Button, Searchbar } from 'react-native-paper';
+import { Button, Searchbar, FAB, Portal, Provider } from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native'
 import ContactAPI from '../../api/contact';
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -17,6 +17,12 @@ const Contacts = ({ logout, userData }) => {
     const navigation = useNavigation();
     const [data, setData] = useState([]);
     const [searchQuery, setSearchQuery] = React.useState('');
+    const [state, setState] = React.useState({ open: false });
+
+    const onStateChange = ({ open }) => setState({ open });
+
+    const { open } = state;
+
 
     const onChangeSearch = query => setSearchQuery(query);
     useEffect(() => {
@@ -50,6 +56,34 @@ const Contacts = ({ logout, userData }) => {
                 style={{ width: '95%', alignSelf: 'center' }}
             />
             <FlatList data={data} renderItem={renderUsers} keyExtractor={(item) => item._id} />
+            <Provider>
+                <Portal>
+                    <FAB.Group
+                        open={open}
+                        icon={'account-settings'}
+                        actions={[
+
+                            {
+                                icon: 'human-greeting',
+                                label: 'Kişi Ekle',
+                                onPress: () => navigation.navigate('Home'),
+                            },
+                            {
+                                icon: 'headset',
+                                label: 'Ayarlar',
+                                onPress: () => console.log('Pressed email'),
+                            },
+
+                        ]}
+                        onStateChange={onStateChange}
+                        onPress={() => {
+                            if (open) {
+                                // do something if the speed dial is open
+                            }
+                        }}
+                    />
+                </Portal>
+            </Provider>
 
         </SafeAreaView>
     )

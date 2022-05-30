@@ -10,7 +10,7 @@ const UserCard = ({ item, navigation }) => {
         })} style={styles.cardStyle}>
             <Image style={styles.imageStyle} source={{ uri: 'https://placeimg.com/60/60/any' }} />
             <Badge style={styles.badge}>3</Badge>
-            <Text style={{ marginLeft: 10 }}>{item.username}</Text>
+            <Text style={{ marginLeft: 10 }}>{item.name}</Text>
         </TouchableOpacity>
     )
 }

@@ -3,7 +3,7 @@ import axios from 'axios';
 export default class ContactAPI {
     static async getContacts(userID, callback) {
         console.log(userID);
-        await axios.get('http://194.5.236.6:9000/api/v1/contact' + userID, {
+        await axios.get('http://194.5.236.6:9000/api/v1/contact/' + userID, {
         })
             .then((resp) => {
                 console.log('object', resp);
@@ -30,7 +30,8 @@ export default class ContactAPI {
         console.log("gelen values", values)
         const params = JSON.stringify({
             "userID": values.userID,
-            "contactID": values.contactID
+            "contactID": values.contactID,
+            'name': values.contactName
         });
 
         axios.post('http://194.5.236.6:9000/api/v1/contact/addContact', params, {

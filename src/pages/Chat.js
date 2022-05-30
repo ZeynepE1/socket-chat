@@ -8,7 +8,7 @@ import { Button, TextInput } from 'react-native-paper'
 import { useIsFocused } from '@react-navigation/native'
 
 const Chat = ({ userData, route }) => {
-    const { userID } = route.params
+    // const { userID } = route.params
     // console.log("gönderen", userData.user.userID)
     // console.log("alan", userID)
     const [messages, setMessages] = useState([])
@@ -45,7 +45,7 @@ const Chat = ({ userData, route }) => {
         })
         let isApiSubscribed = true;
 
-        ChatAPI.getMessages(userData.user.userID, userID, (resp, err) => {
+        ChatAPI.getMessages(userData.user.userID, route.params?.userID, (resp, err) => {
             // console.log("resppppp", resp)
             if (isApiSubscribed) {
 
@@ -63,9 +63,9 @@ const Chat = ({ userData, route }) => {
 
     const onSend = (messages) => {
         const chatData = {
-            reveiver: userID,
+            reveiver: route.params?.userID,
             sender: userData.user.userID,
-            chatID: userData.user.userID + userID
+            chatID: userData.user.userID + route.params?.userID
         }
         const mes = messages[0];
         // console.log("messages", messages)

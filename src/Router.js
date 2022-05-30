@@ -11,41 +11,44 @@ import Chat from './pages/Chat';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Contacts from './pages/Contacts/Contacts';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 
 
 
 
 const Stack = createNativeStackNavigator();
+const Tab = createMaterialTopTabNavigator();
 const Router = ({ userData }) => {
   // console.log(userData.user.userID)
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Stack.Navigator>
-          {
-            userData.user ? (
-              <>
-                <Stack.Screen
-                  name="Contacts"
-                  component={Contacts}
-                  options={{ headerShown: false }}
-                />
-                <Stack.Screen name="Chat" options={{ title: 'Chat' }} component={Chat} />
-              </>
-            ) : (
-              <>
-                <Stack.Screen name="Login" component={Login} />
-                <Stack.Screen name="Register" component={Register} />
-                <Stack.Screen name="Home" component={Home} />
 
-              </>
-            )
-          }
+        {
+          userData.user ? (
 
 
+            <Tab.Navigator>
+              <Tab.Screen name="Chat" component={Chat} />
+              <Tab.Screen name="Contacts" component={Contacts} />
+              <Tab.Screen name="Home" options={{ title: 'Users' }} component={Home} />
+            </Tab.Navigator>
 
-        </Stack.Navigator>
+
+          ) : (
+            <Stack.Navigator>
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Register" component={Register} />
+
+            </Stack.Navigator>
+
+          )
+        }
+
+
+
+
         <FlashMessage />
       </NavigationContainer>
     </SafeAreaProvider>

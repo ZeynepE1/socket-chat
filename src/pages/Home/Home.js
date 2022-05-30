@@ -20,6 +20,7 @@ const Home = ({ logout, userData }) => {
 
     const onChangeSearch = query => setSearchQuery(query);
     useEffect(() => {
+        console.log("gidiiiyosun")
         let isApiSubscribed = true;
 
         UserAPI.getAllUsers((resp, err) => {
@@ -43,6 +44,7 @@ const Home = ({ logout, userData }) => {
     return (
         <SafeAreaView style={styles.container}>
             <Button color='black' icon="logout" style={{ backgroundColor: '#bff5e9', width: '95%', alignSelf: 'center' }} onPress={() => logout()}><Text>Çıkış</Text></Button>
+            <Button color='black' icon="logout" style={{ backgroundColor: '#bff5e9', width: '95%', alignSelf: 'center' }} onPress={() => navigation.navigate('Contacts')}><Text>Tamam</Text></Button>
             <Searchbar
                 placeholder="Search"
                 onChangeText={onChangeSearch}
