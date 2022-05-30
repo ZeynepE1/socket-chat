@@ -10,6 +10,8 @@ import Home from './pages/Home/Home';
 import Chat from './pages/Chat';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import Contacts from './pages/Contacts/Contacts';
+
 
 
 
@@ -25,8 +27,8 @@ const Router = ({ userData }) => {
             userData.user ? (
               <>
                 <Stack.Screen
-                  name="Home"
-                  component={Home}
+                  name="Contacts"
+                  component={Contacts}
                   options={{ headerShown: false }}
                 />
                 <Stack.Screen name="Chat" options={{ title: 'Chat' }} component={Chat} />
@@ -35,6 +37,8 @@ const Router = ({ userData }) => {
               <>
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
+                <Stack.Screen name="Home" component={Home} />
+
               </>
             )
           }

@@ -6,12 +6,12 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Button, Searchbar } from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native'
-import UserAPI from '../../api/user';
+import ContactAPI from '../../api/contact';
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { useNavigation } from '@react-navigation/native';
-import UserCard from './UserCard';
-const Home = ({ logout, userData }) => {
+import UserCard from './ContactCard';
+const Contacts = ({ logout, userData }) => {
     //logout();
     const isFocused = useIsFocused();
     const navigation = useNavigation();
@@ -22,10 +22,10 @@ const Home = ({ logout, userData }) => {
     useEffect(() => {
         let isApiSubscribed = true;
 
-        UserAPI.getAllUsers((resp, err) => {
-            console.log('userData', userData)
+        ContactAPI.getContacts(userData.user.userID, (resp, err) => {
+            console.log('****', resp);
             if (isApiSubscribed) {
-                setData(resp.users);
+                setData(resp.contacts);
             }
         }).catch((err) => {
             console.log(err)
@@ -71,4 +71,4 @@ const mapStateToProps = ({ userData }) => {
 const mapDispatchToProps = dispatch => ({
     logout: () => dispatch(logout())
 });
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Contacts);
