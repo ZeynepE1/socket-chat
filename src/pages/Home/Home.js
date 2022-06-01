@@ -30,7 +30,7 @@ const Home = ({ logout, userData }) => {
                 setData(resp.users);
             }
         }).catch((err) => {
-            console.log(err)
+            // console.log(err)
         })
         return () => {
             isApiSubscribed = false;

@@ -6,7 +6,7 @@ export default class ContactAPI {
         await axios.get('http://194.5.236.6:9000/api/v1/contact/' + userID, {
         })
             .then((resp) => {
-                console.log('object', resp);
+                // console.log('object', resp);
                 callback(resp.data, false)
             })
             .catch((error) => {
@@ -27,7 +27,7 @@ export default class ContactAPI {
     }
 
     static async addContact(values, callback) {
-        console.log("gelen values", values)
+        // console.log("gelen values", values)
         const params = JSON.stringify({
             "userID": values.userID,
             "contactID": values.contactID,

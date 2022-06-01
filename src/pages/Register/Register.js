@@ -19,33 +19,6 @@ import { ScrollView } from "react-native-virtualized-view";
 import { Picker } from "@react-native-picker/picker";
 
 const Register = ({ login, userData }) => {
-<<<<<<< HEAD
-    console.log('*****', userData)
-    //const {data,loading,error,post} = usePost();
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [selectedLanguage, setSelectedLanguage] = useState();
-    // console.log("selectedLanguage", selectedLanguage)
-    async function handleLogin(values) {
-        //console.log(values)
-
-        await AuthApi.register(selectedLanguage, values, (resp, err) => {
-            //console.log(resp)
-
-            login(resp);
-
-        }).catch((err) => {
-            console.log(err)
-        })
-    }
-    const navigation = useNavigation();
-
-
-    return (
-
-        <SafeAreaView style={styles.container}>
-            {/*    <View style={styles.logoContainer}>
-=======
   console.log("*****", userData);
   //const {data,loading,error,post} = usePost();
   const [username, setUsername] = useState("");
@@ -72,7 +45,6 @@ const Register = ({ login, userData }) => {
   return (
     <SafeAreaView style={styles.container}>
       {/*    <View style={styles.logoContainer}>
->>>>>>> 8cb5ea34e35193f4608410ae8a43293923dc02ff
                  <Image style={styles.logo} source={require('../../assets/logo/lg6.png')} />
              </View> */}
       <Formik

@@ -47,7 +47,7 @@ const Contacts = ({ logout, userData }) => {
                 setData(resp.contacts);
             }
         }).catch((err) => {
-            console.log(err)
+            // console.log(err)
         })
         return () => {
             isApiSubscribed = false;

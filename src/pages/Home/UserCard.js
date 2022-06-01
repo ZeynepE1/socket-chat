@@ -19,10 +19,10 @@ const UserCard = ({ item, navigation, userData }) => {
         setClick(true)
         ContactAPI.addContact(values, (resp, err) => {
             if (isApiSubscribed) {
-                console.log(resp)
+                // console.log(resp)
             }
         }).catch((err) => {
-            console.log(err)
+            // console.log(err)
         })
 
     }
