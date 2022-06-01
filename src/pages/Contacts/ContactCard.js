@@ -3,13 +3,13 @@ import React from 'react'
 import { Badge } from 'react-native-paper';
 
 
-const UserCard = ({ item, navigation }) => {
+const UserCard = ({ item, navigation, messageCount }) => {
     return (
         <TouchableOpacity onPress={() => navigation.navigate('Chat', {
             userID: item._id
         })} style={styles.cardStyle}>
             <Image style={styles.imageStyle} source={{ uri: 'https://placeimg.com/60/60/any' }} />
-            <Badge style={styles.badge}>3</Badge>
+            <Badge style={styles.badge}>{messageCount}</Badge>
             <Text style={{ marginLeft: 10 }}>{item.name}</Text>
         </TouchableOpacity>
     )

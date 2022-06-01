@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import ChatAPI from '../api/chat';
 import { Button, TextInput } from 'react-native-paper'
 import { useIsFocused } from '@react-navigation/native'
+import translate from 'translate-google-api';
 
 const Chat = ({ userData, route }) => {
     // const { userID } = route.params
@@ -19,42 +20,41 @@ const Chat = ({ userData, route }) => {
 
     // socketRef.current = io('http://194.5.236.6:9001')
     socketRef.current = io('http://194.5.236.6:9001')
+    var userIDs = userData.user.userID;
 
-    // socketRef.current.on('messages', (mes) => {
-    //     console.log("mess", mes)
-    //     const arrMes = [{ ...mes.messages }];
+    const cevir = async () => {
+        const result = await translate(`I'm fine.`, {
+            tld: "cn",
+            to: "es",
+        });
 
-    //     setMessages((previousState) => ({
-    //         messages: GiftedChat.append(previousState.messages, arrMes),
-    //     }));
-    // });
-    // console.log(userData)
-    // const onReceivedMessage = () => {
-    //     socketRef.current.on('messages', (messageData) => {
-    //         // console.log("messageData", [messageData])
-    //         setMessages(previousMessages => GiftedChat.append(previousMessages, [messageData]))
+        return result
+    }
 
-    //     })
-    // }
+
+
     useEffect(() => {
-        socketRef.current.on('messageObj', (messageData) => {
-            console.log("messageData", messageData.messages)
-            // messages.push(messageData.messages)
-            // GiftedChat.append(messageData.messages)
-            setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
+        cevir().then(result => {
+            console.log("result", result)
+        })
+
+        socketRef.current.emit('addUser', userIDs)
+        socketRef.current.on('getUsers', (users) => {
+            console.log("***********", users)
+            // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
         })
         let isApiSubscribed = true;
 
-        ChatAPI.getMessages(userData.user.userID, route.params?.userID, (resp, err) => {
-            // console.log("resppppp", resp)
-            if (isApiSubscribed) {
+        // ChatAPI.getMessages(userData.user.userID, route.params?.userID, (resp, err) => {
+        //     // console.log("resppppp", resp)
+        //     if (isApiSubscribed) {
 
-                // console.log("*-***", resp.messages)
-                setMessages(resp.newArray);
-            }
-        }).catch((err) => {
-            console.log(err)
-        })
+        //         // console.log("*-***", resp.messages)
+        //         setMessages(resp.newArray);
+        //     }
+        // }).catch((err) => {
+        //     // console.log(err)
+        // })
         return () => {
             isApiSubscribed = false;
         };
@@ -74,12 +74,24 @@ const Chat = ({ userData, route }) => {
         mes['username'] = userData.user.username;
         // setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
         // console.log("username*************", username)
-        socketRef.current.emit('messages', mes, chatData)
-        socketRef.current.on('userInfo', (userInfo) => {
-            console.log(userInfo)
-        })
+        const data = {
+            receiverId: route.params?.userID,
+            senderId: userData.user.userID,
+            text: mes
+        }
+        socketRef.current.emit('sendMessage', data)
+        // socketRef.current.on('userInfo', (userInfo) => {
+        //     console.log(userInfo)
+        // })
 
         // setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+
+
+        socketRef.current.on('getMessage', (sender, text) => {
+            console.log("***********", sender)
+            console.log("***********", text)
+            // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
+        })
     }
 
 

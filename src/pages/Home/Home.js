@@ -1,5 +1,5 @@
 import { View, StyleSheet, Text, ScrollView, FlatList } from 'react-native';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { logout } from '../../action/creators'
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -19,12 +19,13 @@ const Home = ({ logout, userData }) => {
     const [searchQuery, setSearchQuery] = React.useState('');
 
     const onChangeSearch = query => setSearchQuery(query);
+
     useEffect(() => {
-        console.log("gidiiiyosun")
+
         let isApiSubscribed = true;
 
         UserAPI.getAllUsers((resp, err) => {
-            console.log('userData', userData)
+            //console.log('userData', userData)
             if (isApiSubscribed) {
                 setData(resp.users);
             }

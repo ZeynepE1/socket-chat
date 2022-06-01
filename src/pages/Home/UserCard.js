@@ -33,7 +33,7 @@ const UserCard = ({ item, navigation, userData }) => {
                 userID: item._id
             })} style={styles.cardStyle}>
                 <Image style={styles.imageStyle} source={{ uri: 'https://placeimg.com/60/60/any' }} />
-                <Badge style={styles.badge}>3</Badge>
+
                 <Text style={{ marginLeft: 10 }}>{item.username}</Text>
             </View>
             <TouchableOpacity onPress={() => addUser()}><Icon style={styles.iconStyle} color={click ? 'blue' : 'black'} size={40} name={"person-add"} /></TouchableOpacity>

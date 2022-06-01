@@ -1,5 +1,5 @@
 import { View, StyleSheet, Text, ScrollView, FlatList } from 'react-native';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { logout } from '../../action/creators'
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -8,6 +8,7 @@ import { Button, Searchbar, FAB, Portal, Provider } from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native'
 import ContactAPI from '../../api/contact';
 import { SafeAreaView } from 'react-native-safe-area-context'
+// import io from 'socket.io-client'
 
 import { useNavigation } from '@react-navigation/native';
 import UserCard from './ContactCard';
@@ -18,18 +19,30 @@ const Contacts = ({ logout, userData }) => {
     const [data, setData] = useState([]);
     const [searchQuery, setSearchQuery] = React.useState('');
     const [state, setState] = React.useState({ open: false });
+    const [messageCount, setMessageCount] = useState(0);
 
     const onStateChange = ({ open }) => setState({ open });
+    // const socketRef = useRef()
 
     const { open } = state;
+    // socketRef.current = io('http://194.5.236.6:9001')
 
 
     const onChangeSearch = query => setSearchQuery(query);
     useEffect(() => {
+        // socketRef.current.emit('badges', userData.user.userID)
+        // // socketRef.current.on('messageCount', userData.user.userID)
+        // socketRef.current.on('messageCount', (count) => {
+        //     console.log("mesaj sayısı", count.messageCount)
+        //     setMessageCount(count.messageCount)
+        //     // // messages.push(messageData.messages)
+        //     // // GiftedChat.append(messageData.messages)
+        //     // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
+        // })
         let isApiSubscribed = true;
 
         ContactAPI.getContacts(userData.user.userID, (resp, err) => {
-            console.log('****', resp);
+            // console.log('****', resp);
             if (isApiSubscribed) {
                 setData(resp.contacts);
             }
@@ -43,7 +56,7 @@ const Contacts = ({ logout, userData }) => {
 
     const renderUsers = ({ item }) => {
         return (
-            <UserCard item={item} navigation={navigation} />
+            <UserCard item={item} navigation={navigation} messageCount={messageCount} />
         )
     }
     return (

@@ -19,10 +19,10 @@ const Register = ({ login, userData }) => {
     const [selectedLanguage, setSelectedLanguage] = useState();
     // console.log("selectedLanguage", selectedLanguage)
     async function handleLogin(values) {
-        console.log(values)
+        //console.log(values)
 
         await AuthApi.register(selectedLanguage, values, (resp, err) => {
-            console.log(resp)
+            //console.log(resp)
 
             login(resp);
 

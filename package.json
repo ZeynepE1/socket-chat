@@ -41,7 +41,8 @@
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
     "redux-socket.io": "^1.4.0",
-    "socket.io-client": "^4.5.0"
+    "socket.io-client": "^4.5.0",
+    "translate-google-api": "^1.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
