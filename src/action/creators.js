@@ -1,9 +1,10 @@
 import {
-  LOGIN, 
-  LOGOUT, 
+  LOGIN,
+  LOGOUT,
   TIME,
   STUDENT,
-  MESSAGE
+  MESSAGE,
+  SOCKET
 } from './types';
 
 export const login = (payload) => ({
@@ -20,4 +21,8 @@ export const logout = () => ({
   type: LOGOUT,
 });
 
+export const setSocket = (payload) => ({
+  type: SOCKET,
+  payload: payload,
+});
 

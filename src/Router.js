@@ -12,6 +12,7 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Contacts from './pages/Contacts/Contacts';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { logout } from './action/creators'
 
 
 
@@ -19,18 +20,10 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialTopTabNavigator();
-const Router = ({ userData }) => {
+const Router = ({ userData, socket, logout }) => {
+  // console.log("0000000", socket)
+  // logout();
   // console.log(userData.user.userID)
-
-  const chatNavigator = () => {
-    return (
-      <Stack.Navigator>
-        <Stack.Screen name="Contacts" component={Contacts} />
-        <Stack.Screen name="Chat" component={Chat} />
-      </Stack.Navigator>
-    )
-
-  }
   return (
     <SafeAreaProvider>
       <NavigationContainer>
@@ -41,8 +34,8 @@ const Router = ({ userData }) => {
 
 
             <Tab.Navigator>
-              {/* <Tab.Screen name="Chat" component={Chat} /> */}
-              <Tab.Screen name="Contacts" component={chatNavigator} />
+              <Tab.Screen name="Chat" component={Chat} />
+              <Tab.Screen name="Contacts" component={Contacts} />
               <Tab.Screen name="Home" options={{ title: 'Users' }} component={Home} />
             </Tab.Navigator>
 
@@ -76,9 +69,9 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = ({ userData }) => {
+const mapStateToProps = ({ userData, socket }) => {
   return {
-    userData
+    userData, socket
   }
 }
 const mapDispatchToProps = (dispatch) => ({

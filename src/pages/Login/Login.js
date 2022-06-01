@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   SafeAreaView,
   Text,
@@ -11,22 +11,27 @@ import styles from "./LoginStyle";
 import { Formik } from "formik";
 import axios from "axios";
 import { connect } from "react-redux";
-import { login } from "../../action/creators";
+import { login, setSocket } from "../../action/creators";
 import AuthApi from "../../api/auth";
 import { TextInput, FAB, Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { Picker, FormItem } from "react-native-form-component";
+import io from 'socket.io-client'
 
-const LoginPage = ({ login }) => {
+const LoginPage = ({ login, setSocket }) => {
   //const {data,loading,error,post} = usePost();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [secureText, setSecureText] = useState(true);
+  const socketRef = useRef()
+  socketRef.current = io('http://194.5.236.6:9001')
 
   async function handleLogin(values) {
     await AuthApi.login(values, (resp, err) => {
       console.log(resp);
       if (resp.user) {
+        // console.log("socketRef.current", socketRef.current)
+        setSocket(socketRef.current)
         login(resp);
       }
     }).catch((err) => {
@@ -119,12 +124,13 @@ const LoginPage = ({ login }) => {
   );
 };
 
-const mapStateToProps = ({}) => {
+const mapStateToProps = ({ }) => {
   return {};
 };
 
 const mapDispatchToProps = (dispatch) => ({
   login: (value) => dispatch(login(value)),
+  setSocket: (value) => dispatch(setSocket(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

@@ -3,14 +3,16 @@ import {
 	LOGOUT,
 	TIME,
 	STUDENT,
-	MESSAGE
+	MESSAGE,
+	SOCKET
 } from '../action/types';
 
 import Moment from 'moment';
 
 const initialState = {
 	userData: {},
-	messageData2: []
+	messageData2: [],
+	socket: {}
 };
 
 function reducers(state = initialState, action) {
@@ -23,6 +25,12 @@ function reducers(state = initialState, action) {
 					user
 
 				},
+			};
+
+		case SOCKET:
+			return {
+				...state,
+				socket: action.payload,
 			};
 		case LOGOUT:
 			return {

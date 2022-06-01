@@ -8,18 +8,19 @@ import { Button, TextInput } from 'react-native-paper'
 import { useIsFocused } from '@react-navigation/native'
 // import translate from 'translate-google-api';
 
-const Chat = ({ userData, route }) => {
+const Chat = ({ userData, route, socket }) => {
+    console.log(socket)
     // const { userID } = route.params
     // console.log("gönderen", userData.user.userID)
     // console.log("alan", userID)
     const [messages, setMessages] = useState([])
     const [refresh, setRefresh] = useState(false)
     // const [textValue, setTextValue] = React.useState("");
-    const socketRef = useRef()
+    // const socketRef = useRef()
     const isFocused = useIsFocused()
 
-    // socketRef.current = io('http://194.5.236.6:9001')
-    socketRef.current = io('http://194.5.236.6:9001')
+    // socket = io('http://194.5.236.6:9001')
+    // socket = io('http://194.5.236.6:9001')
     var userIDs = userData.user.userID;
 
     // const cevir = async () => {
@@ -38,8 +39,8 @@ const Chat = ({ userData, route }) => {
         //     console.log("result", result)
         // })
         console.log("mesajı sana gönderdim", route.params?.userID)
-        socketRef.current.emit('addUser', userIDs)
-        socketRef.current.on('getUsers', (users) => {
+        socket.emit('addUser', userIDs)
+        socket.on('getUsers', (users) => {
             console.log("*****users******", users)
             // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
         })
@@ -82,11 +83,11 @@ const Chat = ({ userData, route }) => {
             text: mes,
             username: userData.user.username
         }
-        socketRef.current.emit('sendMessage', data)
-        // socketRef.current.on('userInfo', (userInfo) => {
+        socket.emit('sendMessage', data)
+        // socket.on('userInfo', (userInfo) => {
         //     console.log(userInfo)
         // })
-        socketRef.current.on('getMessage', (message) => {
+        socket.on('getMessage', (message) => {
             console.log("*****mmmm******", message.messageObj)
             // setMessages(previousMessages => GiftedChat.append(previousMessages, message.messageObj))
             // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
@@ -95,7 +96,7 @@ const Chat = ({ userData, route }) => {
         // setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
 
 
-        // socketRef.current.on('getMessage', (message) => {
+        // socket.on('getMessage', (message) => {
         //     console.log("*****mmmm******", message.messageObj)
         //     // setMessages(previousMessages => GiftedChat.append(previousMessages, message.messageObj))
         //     // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
@@ -118,8 +119,8 @@ const Chat = ({ userData, route }) => {
     //     // let txt = message[0].text
     //     // console.log(message)
     //     // console.log("giden message", message)
-    //     socketRef.current.emit('message', message)
-    //     socketRef.current.on('message', (message) => {
+    //     socket.emit('message', message)
+    //     socket.on('message', (message) => {
     //         messages.push(message)
     //         // setMessages(previousMessages => GiftedChat.append(previousMessages, message))
     //     })
@@ -139,6 +140,7 @@ const Chat = ({ userData, route }) => {
     //     )
     // }
     return (
+
         <GiftedChat
             messages={messages}
             onSend={onSend}
@@ -199,9 +201,10 @@ const styles = StyleSheet.create({
 });
 
 
-const mapStateToProps = ({ userData }) => {
+const mapStateToProps = ({ userData, socket }) => {
     return {
-        userData
+        userData,
+        socket
     }
 }
 const mapDispatchToProps = (dispatch) => ({
