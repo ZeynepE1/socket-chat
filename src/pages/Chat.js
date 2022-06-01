@@ -99,7 +99,8 @@ const Chat = ({ userData, route, socket }) => {
             receiverId: route.params?.userID,
             senderId: userData.user.userID,
             text: mes,
-            username: userData.user.username
+            username: userData.user.username,
+            chatID: userData.user.userID + route.params?.userID
         }
         socket.emit('sendMessage', data)
         setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
