@@ -44,12 +44,7 @@ const Chat = ({ userData, route, socket }) => {
             console.log("*****users******", users)
             // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
         })
-        socket.on('getMessage', (message) => {
-            // console.log("*****mmmm******", message.messageObj)
-            setMessages(previousMessages => GiftedChat.append(previousMessages, message.messageObj))
-            // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
 
-        })
 
 
 
@@ -69,7 +64,7 @@ const Chat = ({ userData, route, socket }) => {
             isApiSubscribed = false;
         };
 
-    }, [isFocused, refresh])
+    }, [isFocused])
 
     const onSend = (messages) => {
         const chatData = {
@@ -96,8 +91,14 @@ const Chat = ({ userData, route, socket }) => {
         // })
 
         // setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
-        setRefresh(!refresh)
+        // setRefresh(!refresh)
+        // setMessages(messages)
+        socket.on('getMessage', (message) => {
+            // console.log("*****mmmm******", message.messageObj)
+            setMessages(previousMessages => GiftedChat.append(previousMessages, message.messageObj))
+            // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
 
+        })
         // socket.on('getMessage', (message) => {
         //     console.log("*****mmmm******", message.messageObj)
         //     // setMessages(previousMessages => GiftedChat.append(previousMessages, message.messageObj))
