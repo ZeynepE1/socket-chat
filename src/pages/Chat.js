@@ -51,16 +51,16 @@ const Chat = ({ userData, route, socket }) => {
 
         let isApiSubscribed = true;
 
-        // ChatAPI.getMessages(userData.user.userID, route.params?.userID, (resp, err) => {
-        //     // console.log("resppppp", resp)
-        //     if (isApiSubscribed) {
+        ChatAPI.getMessages(userData.user.userID, route.params?.userID, (resp, err) => {
+            // console.log("resppppp", resp)
+            if (isApiSubscribed) {
 
-        //         // console.log("*-***", resp.messages)
-        //         setMessages(resp.newArray);
-        //     }
-        // }).catch((err) => {
-        //     // console.log(err)
-        // })
+                // console.log("*-***", resp.messages)
+                setMessages(resp.newArray);
+            }
+        }).catch((err) => {
+            // console.log(err)
+        })
         return () => {
             isApiSubscribed = false;
         };
