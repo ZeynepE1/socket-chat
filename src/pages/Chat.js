@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import ChatAPI from '../api/chat';
 import { Button, TextInput } from 'react-native-paper'
 import { useIsFocused } from '@react-navigation/native'
-// import translate from 'translate-google-api';
+import translate from 'translate-google-api';
 
 const Chat = ({ userData, route, socket }) => {
     // console.log(socket)
@@ -19,18 +19,18 @@ const Chat = ({ userData, route, socket }) => {
     // const socketRef = useRef()
     const isFocused = useIsFocused()
 
+
     // socket = io('http://194.5.236.6:9001')
     // socket = io('http://194.5.236.6:9001')
     var userIDs = userData.user.userID;
+    const cevir = async (text) => {
+        const result = await translate(text, {
+            tld: "cn",
+            to: "en",
+        });
 
-    // const cevir = async () => {
-    //     const result = await translate(`I'm fine.`, {
-    //         tld: "cn",
-    //         to: "es",
-    //     });
-
-    //     return result
-    // }
+        return result
+    }
 
 
 
@@ -47,12 +47,7 @@ const Chat = ({ userData, route, socket }) => {
         })
 
 
-        socket.on('getMessage', (message) => {
-            console.log("*****mmmm******", message.messageObj)
-            setMessages(previousMessages => GiftedChat.append(previousMessages, message.messageObj))
-            // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
 
-        })
 
         let isApiSubscribed = true;
 
@@ -74,15 +69,12 @@ const Chat = ({ userData, route, socket }) => {
 
 
     useEffect(() => {
-
-
-        // cevir().then(result => {
-        //     console.log("result", result)
-        // })
-
         socket.on('getMessage', (message) => {
             console.log("*****mmmm******", message.messageObj)
-            setMessages(previousMessages => GiftedChat.append(previousMessages, message.messageObj))
+            cevir(message.messageObj.text).then(result => {
+                message.messageObj.text = result;
+                setMessages(previousMessages => GiftedChat.append(previousMessages, message.messageObj))
+            })
             // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
 
         })
@@ -110,7 +102,8 @@ const Chat = ({ userData, route, socket }) => {
             username: userData.user.username
         }
         socket.emit('sendMessage', data)
-        setRefresh(!refresh)
+        setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+        //setRefresh(!refresh)
         // socket.on('userInfo', (userInfo) => {
         //     console.log(userInfo)
         // })
