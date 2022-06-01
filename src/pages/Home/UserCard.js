@@ -36,7 +36,7 @@ const UserCard = ({ item, navigation, userData }) => {
 
                 <Text style={{ marginLeft: 10 }}>{item.username}</Text>
             </View>
-            <TouchableOpacity onPress={() => addUser()}><Icon style={styles.iconStyle} color={click ? 'blue' : 'black'} size={40} name={"person-add"} /></TouchableOpacity>
+            {/* <TouchableOpacity onPress={() => addUser()}><Icon style={styles.iconStyle} color={click ? 'blue' : 'black'} size={40} name={"person-add"} /></TouchableOpacity> */}
 
         </View>
     )

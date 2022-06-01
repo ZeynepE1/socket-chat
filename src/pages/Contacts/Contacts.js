@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, ScrollView, FlatList } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, FlatList, SafeAreaView } from 'react-native';
 import React, { useEffect, useState, useRef } from 'react'
 import { logout } from '../../action/creators'
 import { connect } from 'react-redux';
@@ -7,7 +7,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Button, Searchbar, FAB, Portal, Provider } from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native'
 import ContactAPI from '../../api/contact';
-import { SafeAreaView } from 'react-native-safe-area-context'
 // import io from 'socket.io-client'
 
 import { useNavigation } from '@react-navigation/native';

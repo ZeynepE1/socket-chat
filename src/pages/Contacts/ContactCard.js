@@ -8,8 +8,10 @@ const UserCard = ({ item, navigation, messageCount }) => {
         <TouchableOpacity onPress={() => navigation.navigate('Chat', {
             userID: item.userId
         })} style={styles.cardStyle}>
-            <Image style={styles.imageStyle} source={{ uri: 'https://placeimg.com/60/60/any' }} />
-            <Badge style={styles.badge}>{messageCount}</Badge>
+            <View style={styles.imageStyle}>
+                <Image style={{ width: '100%', height: '100%', resizeMode: 'cover', borderRadius: 50 }} source={{ uri: 'https://placeimg.com/60/60/any' }} />
+            </View>
+            {/* <Badge size={10} style={styles.badge}></Badge> */}
             <Text style={{ marginLeft: 10 }}>{item.userName}</Text>
         </TouchableOpacity>
     )
@@ -40,8 +42,11 @@ const styles = StyleSheet.create({
     imageStyle: {
         width: 50,
         height: 50,
-        borderRadius: 50
+        borderRadius: 50,
+        borderColor: 'green',
+        borderWidth: 2,
+        padding: 2
     },
-    badge: { position: 'absolute', margin: 0, right: 310, bottom: 55, backgroundColor: 'green' },
+    // badge: { position: 'absolute', margin: 0, right: 320, bottom: 55, backgroundColor: 'green' },
 });
 export default UserCard
