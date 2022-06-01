@@ -10,7 +10,7 @@ const UserCard = ({ item, navigation, messageCount }) => {
         })} style={styles.cardStyle}>
             <Image style={styles.imageStyle} source={{ uri: 'https://placeimg.com/60/60/any' }} />
             <Badge style={styles.badge}>{messageCount}</Badge>
-            <Text style={{ marginLeft: 10 }}>{item.name}</Text>
+            <Text style={{ marginLeft: 10 }}>{item.userName}</Text>
         </TouchableOpacity>
     )
 }

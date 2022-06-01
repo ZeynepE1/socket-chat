@@ -12,7 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { useNavigation } from '@react-navigation/native';
 import UserCard from './ContactCard';
-const Contacts = ({ logout, userData }) => {
+const Contacts = ({ logout, userData, socket }) => {
     //logout();
     const isFocused = useIsFocused();
     const navigation = useNavigation();
@@ -27,7 +27,7 @@ const Contacts = ({ logout, userData }) => {
     const { open } = state;
     // socketRef.current = io('http://194.5.236.6:9001')
 
-
+    console.log("ssss", userData)
     const onChangeSearch = query => setSearchQuery(query);
     useEffect(() => {
         // socketRef.current.emit('badges', userData.user.userID)
@@ -40,15 +40,18 @@ const Contacts = ({ logout, userData }) => {
         //     // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
         // })
         let isApiSubscribed = true;
-
-        ContactAPI.getContacts(userData.user.userID, (resp, err) => {
-            // console.log('****', resp);
-            if (isApiSubscribed) {
-                setData(resp.contacts);
-            }
-        }).catch((err) => {
-            // console.log(err)
+        socket.on('getUsers', (users) => {
+            console.log("*****users******", users)
+            setData(users)
         })
+        // ContactAPI.getContacts(userData.user.userID, (resp, err) => {
+        //     // console.log('****', resp);
+        //     if (isApiSubscribed) {
+        //         setData(resp.contacts);
+        //     }
+        // }).catch((err) => {
+        //     // console.log(err)
+        // })
         return () => {
             isApiSubscribed = false;
         };
@@ -110,9 +113,9 @@ const styles = StyleSheet.create({
 
 });
 
-const mapStateToProps = ({ userData }) => {
+const mapStateToProps = ({ userData, socket }) => {
     return {
-        userData
+        userData, socket
     };
 };
 const mapDispatchToProps = dispatch => ({
