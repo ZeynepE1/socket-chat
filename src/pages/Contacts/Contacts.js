@@ -8,6 +8,7 @@ import { Button, Searchbar, FAB, Portal, Provider } from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native'
 import ContactAPI from '../../api/contact';
 // import io from 'socket.io-client'
+import translate from 'translate-google-api';
 
 import { useNavigation } from '@react-navigation/native';
 import UserCard from './ContactCard';
@@ -20,7 +21,14 @@ const Contacts = ({ logout, userData, socket }) => {
     const [state, setState] = React.useState({ open: false });
     const [messageCount, setMessageCount] = useState(0);
     const [message, setMessage] = useState('');
+    const cevir = async (text) => {
+        const result = await translate(text, {
+            tld: "cn",
+            to: "en",
+        });
 
+        return result
+    }
     const onStateChange = ({ open }) => setState({ open });
     // const socketRef = useRef()
 
