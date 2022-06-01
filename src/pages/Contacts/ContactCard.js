@@ -3,7 +3,7 @@ import React from 'react'
 import { Badge } from 'react-native-paper';
 
 
-const UserCard = ({ item, navigation, messageCount }) => {
+const UserCard = ({ item, navigation, messageCount, lastMessage }) => {
     return (
         <TouchableOpacity onPress={() => navigation.navigate('Chat', {
             userID: item.userId
@@ -13,6 +13,9 @@ const UserCard = ({ item, navigation, messageCount }) => {
             </View>
             {/* <Badge size={10} style={styles.badge}></Badge> */}
             <Text style={{ marginLeft: 10 }}>{item.userName}</Text>
+            <View style={{ flexDirection: 'column' }} >
+                <Text style={{ marginLeft: 10 }}>Son mesaj: {lastMessage}</Text>
+            </View>
         </TouchableOpacity>
     )
 }

@@ -19,6 +19,7 @@ const Contacts = ({ logout, userData, socket }) => {
     const [searchQuery, setSearchQuery] = React.useState('');
     const [state, setState] = React.useState({ open: false });
     const [messageCount, setMessageCount] = useState(0);
+    const [message, setMessage] = useState('');
 
     const onStateChange = ({ open }) => setState({ open });
     // const socketRef = useRef()
@@ -57,9 +58,21 @@ const Contacts = ({ logout, userData, socket }) => {
         // };
     }, [isFocused]);
 
+    useEffect(() => {
+        socket.on('getMessage', (message) => {
+            console.log("*****mmmm******", message.messageObj)
+            cevir(message.messageObj.text).then(result => {
+                message.messageObj.text = result;
+                setMessage(message.messageObj.text)
+            })
+            // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
+
+        })
+    }, [])
+
     const renderUsers = ({ item }) => {
         return (
-            <UserCard item={item} navigation={navigation} messageCount={messageCount} />
+            <UserCard item={item} navigation={navigation} messageCount={messageCount} lastMessage={message} />
         )
     }
     return (
