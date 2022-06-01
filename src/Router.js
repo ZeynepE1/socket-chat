@@ -21,17 +21,28 @@ const Stack = createNativeStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 const Router = ({ userData }) => {
   // console.log(userData.user.userID)
+
+  const chatNavigator = () => {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen name="Contacts" component={Contacts} />
+        <Stack.Screen name="Chat" component={Chat} />
+      </Stack.Navigator>
+    )
+
+  }
   return (
     <SafeAreaProvider>
       <NavigationContainer>
+
 
         {
           userData.user ? (
 
 
             <Tab.Navigator>
-              <Tab.Screen name="Chat" component={Chat} />
-              <Tab.Screen name="Contacts" component={Contacts} />
+              {/* <Tab.Screen name="Chat" component={Chat} /> */}
+              <Tab.Screen name="Contacts" component={chatNavigator} />
               <Tab.Screen name="Home" options={{ title: 'Users' }} component={Home} />
             </Tab.Navigator>
 

@@ -37,19 +37,14 @@ const Chat = ({ userData, route }) => {
         // cevir().then(result => {
         //     console.log("result", result)
         // })
-
+        console.log("mesajı sana gönderdim", route.params?.userID)
         socketRef.current.emit('addUser', userIDs)
         socketRef.current.on('getUsers', (users) => {
             console.log("*****users******", users)
             // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
         })
 
-        socketRef.current.on('getMessage', (message) => {
-            console.log("*****mmmm******", message.messageObj)
-            // setMessages(previousMessages => GiftedChat.append(previousMessages, message.messageObj))
-            // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
 
-        })
         let isApiSubscribed = true;
 
         // ChatAPI.getMessages(userData.user.userID, route.params?.userID, (resp, err) => {
@@ -91,7 +86,12 @@ const Chat = ({ userData, route }) => {
         // socketRef.current.on('userInfo', (userInfo) => {
         //     console.log(userInfo)
         // })
+        socketRef.current.on('getMessage', (message) => {
+            console.log("*****mmmm******", message.messageObj)
+            // setMessages(previousMessages => GiftedChat.append(previousMessages, message.messageObj))
+            // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
 
+        })
         // setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
 
 
