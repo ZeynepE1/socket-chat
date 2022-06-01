@@ -41,10 +41,10 @@ const Chat = ({ userData, route, socket }) => {
         //     console.log("result", result)
         // })
         console.log("mesajı sana gönderdim", route.params?.userID)
-        socket.emit('addUser', userIDs, userData.user.username)
-        socket.on('getUsers', (users) => {
-            console.log("*****users******", users)
-        })
+        // socket.emit('addUser', userIDs, userData.user.username)
+        // socket.on('getUsers', (users) => {
+        //     console.log("*****users******", users)
+        // })
 
 
 

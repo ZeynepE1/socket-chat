@@ -6,7 +6,7 @@ import { Badge } from 'react-native-paper';
 const UserCard = ({ item, navigation, messageCount }) => {
     return (
         <TouchableOpacity onPress={() => navigation.navigate('Chat', {
-            userID: item.contactID
+            userID: item.userId
         })} style={styles.cardStyle}>
             <Image style={styles.imageStyle} source={{ uri: 'https://placeimg.com/60/60/any' }} />
             <Badge style={styles.badge}>{messageCount}</Badge>

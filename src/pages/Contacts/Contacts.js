@@ -27,7 +27,6 @@ const Contacts = ({ logout, userData, socket }) => {
     const { open } = state;
     // socketRef.current = io('http://194.5.236.6:9001')
 
-    console.log("ssss", userData)
     const onChangeSearch = query => setSearchQuery(query);
     useEffect(() => {
         // socketRef.current.emit('badges', userData.user.userID)
@@ -39,7 +38,9 @@ const Contacts = ({ logout, userData, socket }) => {
         //     // // GiftedChat.append(messageData.messages)
         //     // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
         // })
-        let isApiSubscribed = true;
+        // let isApiSubscribed = true;
+        socket.emit('addUser', userData.user.userID, userData.user.username)
+
         socket.on('getUsers', (users) => {
             console.log("*****users******", users)
             setData(users)
@@ -52,9 +53,9 @@ const Contacts = ({ logout, userData, socket }) => {
         // }).catch((err) => {
         //     // console.log(err)
         // })
-        return () => {
-            isApiSubscribed = false;
-        };
+        // return () => {
+        //     isApiSubscribed = false;
+        // };
     }, [isFocused]);
 
     const renderUsers = ({ item }) => {
@@ -71,7 +72,7 @@ const Contacts = ({ logout, userData, socket }) => {
                 value={searchQuery}
                 style={{ width: '95%', alignSelf: 'center' }}
             />
-            <FlatList data={data} renderItem={renderUsers} keyExtractor={(item) => item._id} />
+            <FlatList data={data} renderItem={renderUsers} keyExtractor={(item) => item.userId} />
             <Provider>
                 <Portal>
                     <FAB.Group

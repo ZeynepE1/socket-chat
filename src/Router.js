@@ -25,6 +25,17 @@ const Router = ({ userData, socket, logout }) => {
 
   //logout();
   // console.log(userData.user.userID)
+
+  const ChatNavigation = () => {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen options={{ headerShown: false }}
+          name="Contacts" component={Contacts} />
+        <Stack.Screen options={{ headerShown: false }}
+          name="Chat" component={Chat} />
+      </Stack.Navigator>
+    )
+  }
   return (
     <SafeAreaProvider>
       <NavigationContainer>
@@ -35,9 +46,9 @@ const Router = ({ userData, socket, logout }) => {
 
 
             <Tab.Navigator>
-              <Tab.Screen name="Contacts" component={Contacts} />
+              <Tab.Screen name="ChatNavigator" component={ChatNavigation} />
               <Tab.Screen name="Home" options={{ title: 'Users' }} component={Home} />
-              <Tab.Screen name="Chat" component={Chat} />
+              {/* <Tab.Screen name="Chat" component={Chat} /> */}
             </Tab.Navigator>
 
 
@@ -45,7 +56,6 @@ const Router = ({ userData, socket, logout }) => {
             <Stack.Navigator>
               <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="Register" component={Register} />
-
             </Stack.Navigator>
 
           )
