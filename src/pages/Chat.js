@@ -9,7 +9,7 @@ import { useIsFocused } from '@react-navigation/native'
 // import translate from 'translate-google-api';
 
 const Chat = ({ userData, route, socket }) => {
-    console.log(socket)
+    // console.log(socket)
     // const { userID } = route.params
     // console.log("gönderen", userData.user.userID)
     // console.log("alan", userID)
@@ -44,6 +44,13 @@ const Chat = ({ userData, route, socket }) => {
             console.log("*****users******", users)
             // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
         })
+        socket.on('getMessage', (message) => {
+            // console.log("*****mmmm******", message.messageObj)
+            setMessages(previousMessages => GiftedChat.append(previousMessages, message.messageObj))
+            // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
+
+        })
+
 
 
         let isApiSubscribed = true;
@@ -62,7 +69,7 @@ const Chat = ({ userData, route, socket }) => {
             isApiSubscribed = false;
         };
 
-    }, [isFocused])
+    }, [isFocused, refresh])
 
     const onSend = (messages) => {
         const chatData = {
@@ -87,14 +94,9 @@ const Chat = ({ userData, route, socket }) => {
         // socket.on('userInfo', (userInfo) => {
         //     console.log(userInfo)
         // })
-        socket.on('getMessage', (message) => {
-            console.log("*****mmmm******", message.messageObj)
-            // setMessages(previousMessages => GiftedChat.append(previousMessages, message.messageObj))
-            // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
 
-        })
         // setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
-
+        setRefresh(!refresh)
 
         // socket.on('getMessage', (message) => {
         //     console.log("*****mmmm******", message.messageObj)
@@ -139,8 +141,9 @@ const Chat = ({ userData, route, socket }) => {
     //         <Text style={item.sender == userData.user.userID ? styles.senderStyle : styles.reveiverStyle}>{item.text}</Text>
     //     )
     // }
-    return (
 
+    console.log("MESAJLARRRRRRRR", messages)
+    return (
         <GiftedChat
             messages={messages}
             onSend={onSend}

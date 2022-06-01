@@ -24,12 +24,12 @@ const LoginPage = ({ login, setSocket }) => {
   const [password, setPassword] = useState("");
   const [secureText, setSecureText] = useState(true);
   const socketRef = useRef()
-  socketRef.current = io('http://194.5.236.6:9001')
 
   async function handleLogin(values) {
     await AuthApi.login(values, (resp, err) => {
       console.log(resp);
       if (resp.user) {
+        socketRef.current = io('http://194.5.236.6:9001')
         // console.log("socketRef.current", socketRef.current)
         setSocket(socketRef.current)
         login(resp);
