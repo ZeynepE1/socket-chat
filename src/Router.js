@@ -34,9 +34,9 @@ const Router = ({ userData, socket, logout }) => {
 
 
             <Tab.Navigator>
-              <Tab.Screen name="Chat" component={Chat} />
               <Tab.Screen name="Contacts" component={Contacts} />
               <Tab.Screen name="Home" options={{ title: 'Users' }} component={Home} />
+              <Tab.Screen name="Chat" component={Chat} />
             </Tab.Navigator>
 
 

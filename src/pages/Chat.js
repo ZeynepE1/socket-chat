@@ -94,7 +94,7 @@ const Chat = ({ userData, route, socket }) => {
         // setRefresh(!refresh)
         // setMessages(messages)
         socket.on('getMessage', (message) => {
-            // console.log("*****mmmm******", message.messageObj)
+            console.log("*****mmmm******", message.messageObj)
             setMessages(previousMessages => GiftedChat.append(previousMessages, message.messageObj))
             // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
 
