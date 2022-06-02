@@ -103,6 +103,9 @@ const Register = ({ login, userData }) => {
                 <Picker.Item label="Türkçe" value="tr" />
                 <Picker.Item label="İngilizce" value="en" />
                 <Picker.Item label="Almanca" value="de" />
+                <Picker.Item label="Rusça" value="ru" />
+                <Picker.Item label="Korece" value="ko" />
+                <Picker.Item label="İspanyolca" value="es" />
               </Picker>
             </View>
 
