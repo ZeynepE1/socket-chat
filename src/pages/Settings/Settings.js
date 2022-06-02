@@ -60,6 +60,24 @@ const Settings = ({ userData }) => {
                         marginBottom: '6%',
                     },
                 })
+            } else {
+                showMessage({
+                    message: 'BAŞARISIZ',
+                    description: 'Lütfen tekrar deneyiniz!',
+                    type: 'danger',
+                    position: 'top',
+                    icon: 'danger',
+                    floating: true,
+                    duration: 2500,
+                    titleStyle: {
+                        fontSize: 14,
+                        fontWeight: 'bold',
+                        //color: '#fff',
+                    },
+                    style: {
+                        marginBottom: '6%',
+                    },
+                })
             }
         }).catch((err) => {
             console.log(err)
@@ -71,10 +89,11 @@ const Settings = ({ userData }) => {
     };
 
     async function handleUpdate(values) {
-        await UserAPI.updateUser(values, (resp, err) => {
+        await UserAPI.updateUser(values, selectedLanguage, (resp, err) => {
             // console.log(resp);
             console.log("KULLANICI GUNCELLEMESİ: ", resp)
             if (resp.user) {
+                userData.user.language = selectedLanguage;
                 showMessage({
                     message: 'BAŞARILI',
                     description: 'Bilgileriniz güncellendi!',
@@ -156,8 +175,7 @@ const Settings = ({ userData }) => {
                         initialValues={{
                             username: data.username,
                             email: data.email,
-                            phone: data.phone,
-                            language: data.language,
+                            phone: data.phone
                         }}
                         onSubmit={(formValues) => handleUpdate(formValues)}
                     >

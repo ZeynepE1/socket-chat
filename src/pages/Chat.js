@@ -92,7 +92,7 @@ const Chat = ({ userData, route, socket }) => {
 
                 console.log("aaaaaaaaaaaaaa", dataArray)
                 setMessages(dataArray)
-
+                // setMessages(resp.newArray)
                 // resp.newArray.map(el => {
                 //     // console.log("METİNNNNNN: ", el.text)
                 //     cevir(el.text).then(result => {
@@ -143,7 +143,7 @@ const Chat = ({ userData, route, socket }) => {
         })
 
 
-    }, [refresh])
+    }, [])
 
     const onSend = (messages) => {
         const chatData = {

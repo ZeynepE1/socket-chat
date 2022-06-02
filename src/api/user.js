@@ -92,13 +92,13 @@ export default class UserAPI {
             })
     }
 
-    static async updateUser(values, callback) {
+    static async updateUser(values, selectedLanguage, callback) {
 
         const params = JSON.stringify({
             "email": values.email,
             "username": values.username,
             "phone": values.phone,
-            "language": values.language
+            "language": selectedLanguage
         });
 
         axios.post('http://194.5.236.6:9000/api/v1/user/update-user', params, {

@@ -83,9 +83,15 @@ const Contacts = ({ logout, userData, socket }) => {
             <UserCard item={item} navigation={navigation} userData={userData} lastMessage={message} />
         )
     }
+
+    const exitApp = () => {
+        // socket.emit('disconnect')
+        socket.disconnect()
+        logout();
+    }
     return (
         <SafeAreaView style={styles.container}>
-            <Button color='black' icon="logout" style={{ backgroundColor: '#bff5e9', width: '95%', alignSelf: 'center' }} onPress={() => logout()}><Text>Çıkış</Text></Button>
+            <Button color='black' icon="logout" style={{ backgroundColor: '#bff5e9', width: '95%', alignSelf: 'center' }} onPress={() => exitApp()}><Text>Çıkış</Text></Button>
             {/* <Searchbar
                 placeholder="Search"
                 onChangeText={onChangeSearch}
