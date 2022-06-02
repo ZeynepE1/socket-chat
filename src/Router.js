@@ -7,6 +7,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import FlashMessage from 'react-native-flash-message'
 
 import Home from './pages/Home/Home';
+import Settings from './pages/Settings/Settings';
 import Chat from './pages/Chat';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
@@ -23,7 +24,7 @@ const Tab = createMaterialTopTabNavigator();
 const Router = ({ userData, socket, logout }) => {
   // console.log("0000000", socket)
 
-  //logout();
+  // logout();
   // console.log(userData.user.userID)
 
   const ChatNavigation = () => {
@@ -31,7 +32,7 @@ const Router = ({ userData, socket, logout }) => {
       <Stack.Navigator>
         <Stack.Screen options={{ headerShown: false }}
           name="Contacts" component={Contacts} />
-        <Stack.Screen options={{ headerShown: false }}
+        <Stack.Screen options={{}}
           name="Chat" component={Chat} />
       </Stack.Navigator>
     )
@@ -48,6 +49,7 @@ const Router = ({ userData, socket, logout }) => {
             <Tab.Navigator>
               <Tab.Screen name="ChatNavigator" component={ChatNavigation} />
               <Tab.Screen name="Home" options={{ title: 'Users' }} component={Home} />
+              <Tab.Screen name="Settings" options={{ title: 'Settings' }} component={Settings} />
               {/* <Tab.Screen name="Chat" component={Chat} /> */}
             </Tab.Navigator>
 

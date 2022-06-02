@@ -3,17 +3,18 @@ import React from 'react'
 import { Badge } from 'react-native-paper';
 
 
-const UserCard = ({ item, navigation, messageCount, lastMessage }) => {
+const UserCard = ({ item, navigation, userData, lastMessage }) => {
+    console.log(item)
     return (
         <View style={styles.cardStyle}>
             <TouchableOpacity onPress={() => navigation.navigate('Chat', {
                 userID: item.userId
             })} style={styles.cardStyle2} >
                 <View style={styles.imageStyle}>
-                    <Image style={{ width: '100%', height: '100%', resizeMode: 'cover', borderRadius: 50 }} source={{ uri: 'https://placeimg.com/60/60/any' }} />
+                    <Image style={{ width: '100%', height: '100%', resizeMode: 'cover', borderRadius: 50 }} source={{ uri: item.userAvatar }} />
                 </View>
                 {/* <Badge size={10} style={styles.badge}></Badge> */}
-                <Text style={{ marginLeft: 10 }}>{item.userName}</Text>
+                <Text style={{ marginLeft: 10 }}>{userData.user.userID == item.userId ? 'Ben' : item.userName}</Text>
             </TouchableOpacity>
             <Text style={{
                 marginLeft: 60, color: 'grey', fontSize: 12,
@@ -51,12 +52,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         backgroundColor: 'white',
-        shadowColor: "#000",
-        flex: 1,
-        shadowOpacity: 0.2,
-        shadowRadius: 3.00,
 
-        elevation: 0,
     },
     imageStyle: {
         width: 50,

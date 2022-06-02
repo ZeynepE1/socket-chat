@@ -14,11 +14,12 @@ const Chat = ({ userData, route, socket }) => {
     // console.log("gönderen", userData.user.userID)
     // console.log("alan", userID)
     const [messages, setMessages] = useState([])
+    const [translatedArray, setTranslatedArray] = useState([])
     const [refresh, setRefresh] = useState(false)
     // const [textValue, setTextValue] = React.useState("");
     // const socketRef = useRef()
     const isFocused = useIsFocused()
-
+    // console.log("****DDDDD", userData)
 
     // socket = io('http://194.5.236.6:9001')
     // socket = io('http://194.5.236.6:9001')
@@ -26,11 +27,22 @@ const Chat = ({ userData, route, socket }) => {
     const cevir = async (text) => {
         const result = await translate(text, {
             tld: "cn",
-            to: "en",
+            to: userData.user.language,
         });
 
         return result
     }
+
+    const topluCevir = async (textArray) => {
+        const result = await translate(textArray, {
+            tld: "cn",
+            to: userData.user.language,
+        });
+
+        return result
+    }
+
+
 
 
 
@@ -40,7 +52,7 @@ const Chat = ({ userData, route, socket }) => {
         // cevir().then(result => {
         //     console.log("result", result)
         // })
-        console.log("mesajı sana gönderdim", route.params?.userID)
+        // console.log("mesajı sana gönderdim", route.params?.userID)
         // socket.emit('addUser', userIDs, userData.user.username)
         // socket.on('getUsers', (users) => {
         //     console.log("*****users******", users)
@@ -54,9 +66,60 @@ const Chat = ({ userData, route, socket }) => {
         ChatAPI.getMessages(userData.user.userID, route.params?.userID, (resp, err) => {
             // console.log("resppppp", resp)
             if (isApiSubscribed) {
+                var dataArray = [];
+                var trsnArray = [];
+                topluCevir(resp.onlyMessages).then(result => {
+                    setTranslatedArray(result)
+                })
+                console.log("VVVVVVVVVVV", translatedArray)
 
-                // console.log("*-***", resp.messages)
-                setMessages(resp.newArray);
+
+                if (translatedArray.length == 0) {
+                    setRefresh(!refresh)
+                }
+                resp.newArray.map((element, i) => {
+                    return dataArray.push({
+                        _id: element._id,
+                        text: translatedArray[i],
+                        createdAt: element.createdAt,
+                        user: {
+                            _id: element.user._id,
+                            name: element.user.name,
+                            // avatar: element.user.profileImage
+                        }
+                    })
+                })
+
+                console.log("aaaaaaaaaaaaaa", dataArray)
+                setMessages(dataArray)
+
+                // resp.newArray.map(el => {
+                //     // console.log("METİNNNNNN: ", el.text)
+                //     cevir(el.text).then(result => {
+                //         // console.log("TRANSLATEE:", result[0])
+                //         translatedArray.push({
+                //             _id: el._id,
+                //             text: result,
+                //             createdAt: el.createdAt,
+                //             user: {
+                //                 _id: el.user._id,
+                //                 name: el.user.username,
+                //                 avatar: el.user.avatar
+                //             }
+                //         })
+                //     })
+                //     // setMessages(translatedArray)
+                // console.log("translatedArray", translatedArray)
+
+                // })
+
+
+                // cevir(message.messageObj.text).then(result => {
+                //     message.messageObj.text = result;
+                //     setMessages(previousMessages => GiftedChat.append(previousMessages, message.messageObj))
+                // })
+                // // console.log("*-***", resp.messages)
+                // setMessages(resp.newArray);
             }
         }).catch((err) => {
             // console.log(err)
@@ -65,7 +128,7 @@ const Chat = ({ userData, route, socket }) => {
             isApiSubscribed = false;
         };
 
-    }, [isFocused])
+    }, [refresh])
 
 
     useEffect(() => {
@@ -157,7 +220,7 @@ const Chat = ({ userData, route, socket }) => {
     //     )
     // }
 
-    console.log("MESAJLARRRRRRRR", messages)
+    // console.log("MESAJLARRRRRRRR", messages)
     return (
         <GiftedChat
             messages={messages}

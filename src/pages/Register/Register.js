@@ -23,7 +23,7 @@ const Register = ({ login, userData }) => {
   //const {data,loading,error,post} = usePost();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [selectedLanguage, setSelectedLanguage] = useState();
+  const [selectedLanguage, setSelectedLanguage] = useState('');
   const [secureText, setSecureText] = useState(true);
   // console.log("selectedLanguage", selectedLanguage)
   async function handleLogin(values) {

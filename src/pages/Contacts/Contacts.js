@@ -47,7 +47,7 @@ const Contacts = ({ logout, userData, socket }) => {
         //     // setMessages(previousMessages => GiftedChat.append(previousMessages, messageData.messages))
         // })
         // let isApiSubscribed = true;
-        socket.emit('addUser', userData.user.userID, userData.user.username)
+        socket.emit('addUser', userData.user.userID, userData.user.username, userData.user.avatar)
 
         socket.on('getUsers', (users) => {
             console.log("*****users******", users)
@@ -80,18 +80,18 @@ const Contacts = ({ logout, userData, socket }) => {
 
     const renderUsers = ({ item }) => {
         return (
-            <UserCard item={item} navigation={navigation} messageCount={messageCount} lastMessage={message} />
+            <UserCard item={item} navigation={navigation} userData={userData} lastMessage={message} />
         )
     }
     return (
         <SafeAreaView style={styles.container}>
             <Button color='black' icon="logout" style={{ backgroundColor: '#bff5e9', width: '95%', alignSelf: 'center' }} onPress={() => logout()}><Text>Çıkış</Text></Button>
-            <Searchbar
+            {/* <Searchbar
                 placeholder="Search"
                 onChangeText={onChangeSearch}
                 value={searchQuery}
                 style={{ width: '95%', alignSelf: 'center' }}
-            />
+            /> */}
             <FlatList data={data} renderItem={renderUsers} keyExtractor={(item) => item.userId} />
             <Provider>
                 <Portal>

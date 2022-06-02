@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 
 const UserCard = ({ item, navigation, userData }) => {
     const [click, setClick] = useState(false);
-
     const addUser = () => {
         const values = {
             userID: userData.user.userID,
@@ -32,7 +31,7 @@ const UserCard = ({ item, navigation, userData }) => {
             <View onPress={() => navigation.navigate('Chat', {
                 userID: item._id
             })} style={styles.cardStyle}>
-                <Image style={styles.imageStyle} source={{ uri: 'https://placeimg.com/60/60/any' }} />
+                <Image style={styles.imageStyle} source={{ uri: item.avatar }} />
 
                 <Text style={{ marginLeft: 10 }}>{item.username}</Text>
             </View>

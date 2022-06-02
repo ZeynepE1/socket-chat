@@ -29,6 +29,7 @@ const LoginPage = ({ login, setSocket }) => {
     await AuthApi.login(values, (resp, err) => {
       console.log(resp);
       if (resp.user) {
+        console.log("respim", resp)
         socketRef.current = io('http://194.5.236.6:9001')
         // console.log("socketRef.current", socketRef.current)
         setSocket(socketRef.current)
