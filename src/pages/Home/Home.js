@@ -58,13 +58,13 @@ const Home = ({ logout, userData }) => {
         let isApiSubscribed = true;
         if (isFocused && isApiSubscribed) {
             UserAPI.getAllUsers((resp, err) => {
-                //console.log('userData', userData)
+
                 if (isApiSubscribed) {
                     setData(resp.users);
                     setData2(resp.users);
                 }
             }).catch((err) => {
-                // console.log(err)
+
             })
         }
         return () => {

@@ -19,7 +19,7 @@ import { Picker, FormItem } from "react-native-form-component";
 import io from 'socket.io-client'
 
 const LoginPage = ({ login, setSocket }) => {
-  //const {data,loading,error,post} = usePost();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [secureText, setSecureText] = useState(true);
@@ -31,9 +31,10 @@ const LoginPage = ({ login, setSocket }) => {
       if (resp.user) {
         console.log("respim", resp)
         socketRef.current = io('http://194.5.236.6:9001')
-        // console.log("socketRef.current", socketRef.current)
-        setSocket(socketRef.current)
-        login(resp);
+
+        //LOGİN BAŞARILI İSE KULLANICI SOCKET E BAĞLANIYOR!
+        setSocket(socketRef.current)//SOCKETİ REDUX'A SET EDİYORUZ
+        login(resp);//REDUX'A KULLANICIYI SET EDİYORUZ
       }
     }).catch((err) => {
       console.log(err);
@@ -106,18 +107,7 @@ const LoginPage = ({ login, setSocket }) => {
             >
               Kayıt Ol
             </Button>
-            {/* <FAB
-                            style={styles.fab}
-                            icon="login"
-                            onPress={() => handleSubmit()}
-                            label='Giriş'
-                        />
-                        <FAB
-                            style={styles.fabRegister}
-                            icon="human"
-                            onPress={() => navigation.navigate('Register')}
-                            label='Kayıt Ol'
-                        /> */}
+
           </>
         )}
       </Formik>

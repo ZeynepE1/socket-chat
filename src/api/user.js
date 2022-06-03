@@ -20,7 +20,7 @@ export default class UserAPI {
                     console.log('Error', error.message)
                 }
                 console.log(error.config)
-                //message.error('Bir hata oluştu lütfen tekrar deneyiniz');
+
             })
     }
 
@@ -43,7 +43,7 @@ export default class UserAPI {
                     console.log('Error', error.message)
                 }
                 console.log(error.config)
-                //message.error('Bir hata oluştu lütfen tekrar deneyiniz');
+
             })
     }
 
@@ -67,25 +67,7 @@ export default class UserAPI {
             .then((resp) => {
                 callback(resp.data)
 
-                // if (resp.data.status == 'success') {
-                //     setSent(false)
-                //     Alert.alert(successMiddleware(), successMiddleware(resp.data.message), [
-                //         {
-                //             text: t('genel_tamam'),
-                //             onPress: () =>
-                //                 navigation.reset({
-                //                     index: 0,
-                //                     routes: [{ name: 'İlaç Takvimi' }],
-                //                 }),
-                //         },
-                //     ])
-                // } else {
-                //     setSent(false)
-                //     const respError = ErrorAlert(resp.data.message)
-                //     if (respError === 'kick') {
-                //         dispatch({ type: 'LOGOUT' })
-                //     }
-                // }
+
             })
             .catch((error) => {
                 console.log(error)
@@ -114,15 +96,7 @@ export default class UserAPI {
 
             .catch((error) => {
                 callback(error.response.request.response, true)
-                // if (error.response) {
-                //     console.log(error.response.data)
-                //     console.log(error.response.status)
-                //     console.log(error.response.headers)
-                // } else if (error.request) {
-                //     console.log(error.request)
-                // } else {
-                //     console.log('Error', error.message)
-                // }
+
             });
 
     };

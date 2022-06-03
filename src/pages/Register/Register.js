@@ -20,8 +20,7 @@ import { Picker } from "@react-native-picker/picker";
 
 const Register = ({ login, userData }) => {
   console.log("*****", userData);
-  //const {data,loading,error,post} = usePost();
-  const [username, setUsername] = useState("");
+
   const [password, setPassword] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [secureText, setSecureText] = useState(true);

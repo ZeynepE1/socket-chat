@@ -139,6 +139,7 @@ const Settings = ({ userData }) => {
 
         let isApiSubscribed = true;
         if (isFocused && isApiSubscribed) {
+            //user tablosunu getir!
             UserAPI.getUser(userData.user.userID, (resp, err) => {
                 //console.log('userData', userData)
                 if (isApiSubscribed) {

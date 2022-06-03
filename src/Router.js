@@ -24,7 +24,7 @@ const Tab = createMaterialTopTabNavigator();
 const Router = ({ userData, socket, logout }) => {
   // console.log("0000000", socket)
 
-  // logout();
+  //logout();
   // console.log(userData.user.userID)
 
   const ChatNavigation = () => {
@@ -47,9 +47,9 @@ const Router = ({ userData, socket, logout }) => {
 
 
             <Tab.Navigator>
-              <Tab.Screen name="ChatNavigator" component={ChatNavigation} />
-              <Tab.Screen name="Home" options={{ title: 'Users' }} component={Home} />
-              <Tab.Screen name="Settings" options={{ title: 'Settings' }} component={Settings} />
+              <Tab.Screen name="ChatNavigator" options={{ title: 'Online' }} component={ChatNavigation} />
+              <Tab.Screen name="Home" options={{ title: 'Kullanıcılar' }} component={Home} />
+              <Tab.Screen name="Settings" options={{ title: 'Ayarlar' }} component={Settings} />
               {/* <Tab.Screen name="Chat" component={Chat} /> */}
             </Tab.Navigator>
 

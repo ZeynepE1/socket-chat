@@ -13,7 +13,7 @@ const UserCard = ({ item, navigation, userData, lastMessage }) => {
                 <View style={styles.imageStyle}>
                     <Image style={{ width: '100%', height: '100%', resizeMode: 'cover', borderRadius: 50 }} source={{ uri: item.userAvatar }} />
                 </View>
-                {/* <Badge size={10} style={styles.badge}></Badge> */}
+
                 <Text style={{ marginLeft: 10 }}>{userData.user.userID == item.userId ? 'Ben' : item.userName}</Text>
             </TouchableOpacity>
             <Text style={{
@@ -62,6 +62,6 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         padding: 2
     },
-    // badge: { position: 'absolute', margin: 0, right: 320, bottom: 55, backgroundColor: 'green' },
+
 });
 export default UserCard
